@@ -19,7 +19,7 @@ const Home: React.FC<homeProps> = ({ users }) => {
   }
   return (
     <div className="App">
-      <h1>Monster Rollodex</h1>
+      <h1>Monster Rollodex Sankalp Commit</h1>
       <SearchBar handleChange={handleChange}/>
       <CardList monsters={filterMonsters} />
     </div>
