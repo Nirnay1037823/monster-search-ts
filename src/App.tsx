@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+import { useEffect, useState } from "react";
+import User from "./model/User";
+
 
 function App() {
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(()=>{
+    const fetchUser = async():Promise<void> => {
+      const response = await fetch("https://jsonplaceholder.typicode.com/users");
+      const userData = await response.json();
+
+      setUsers(userData);
+    }
+    fetchUser();
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Home users={users}/>} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
+      </Routes>
+    </>
   );
 }
 
